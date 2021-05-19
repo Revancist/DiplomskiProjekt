@@ -18,7 +18,7 @@ public:
 	AStalker_AI(FObjectInitializer const& object_initializer = FObjectInitializer::Get());
 	void BeginPlay() override;
 	void OnPossess(APawn* const pawn) override;
-	class UBlackboardComponent* get_blackboard() const;
+	class UBlackboardComponent* GetBlackboard() const;
 
 private:
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
@@ -28,7 +28,4 @@ private:
 		class UBehaviorTree* btree;
 
 	class UBlackboardComponent* blackboard;
-
-	UFUNCTION()
-		void on_updated(TArray<AActor*> const& updated_actors);
 };

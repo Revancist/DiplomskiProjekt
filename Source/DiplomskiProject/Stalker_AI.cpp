@@ -41,11 +41,7 @@ void AStalker_AI::OnPossess(APawn* const pawn)
 	}
 }
 
-UBlackboardComponent* AStalker_AI::get_blackboard() const
+UBlackboardComponent* AStalker_AI::GetBlackboard() const
 {
 	return blackboard;
-}
-
-void AStalker_AI::on_updated(TArray<AActor*> const& updated_actors)
-{
 }
