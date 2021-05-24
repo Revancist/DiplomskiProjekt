@@ -40,3 +40,8 @@ void AGuard_NPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
+APatrolPath* AGuard_NPC::GetPatrolPath()
+{
+	return patrol_path;
+}
+
