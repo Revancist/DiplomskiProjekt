@@ -2,6 +2,10 @@
 
 
 #include "Guard_NPC.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AGuard_NPC::AGuard_NPC()
@@ -9,6 +13,10 @@ AGuard_NPC::AGuard_NPC()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Smoothes NPC rotation
+	bUseControllerRotationYaw = false;
+	// GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
 // Called when the game starts or when spawned
@@ -30,10 +38,5 @@ void AGuard_NPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
-
-APatrolPathCpp* AGuard_NPC::GetPatrolPath()
-{
-	return patrol_path;
 }
 

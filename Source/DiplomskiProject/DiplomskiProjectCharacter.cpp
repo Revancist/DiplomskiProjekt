@@ -11,6 +11,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -84,10 +86,11 @@ ADiplomskiProjectCharacter::ADiplomskiProjectCharacter()
 	//bUsingMotionControllers = true;
 
 	// Set base Health Points for Character
-
 	MaxHealth = 100.0f;
 	PlayerHealth = MaxHealth;
 
+	// Setup Perception Stimulus
+	SetupStimulus();
 }
 
 void ADiplomskiProjectCharacter::BeginPlay()
@@ -303,6 +306,13 @@ bool ADiplomskiProjectCharacter::EnableTouchscreenMovement(class UInputComponent
 	}
 	
 	return false;
+}
+
+void ADiplomskiProjectCharacter::SetupStimulus()
+{
+	stimulus = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("stimulus"));
+	stimulus->RegisterForSense(TSubclassOf<UAISense_Sight>());
+	stimulus->RegisterWithPerceptionSystem();
 }
 
 // Returns Maximum Health Points

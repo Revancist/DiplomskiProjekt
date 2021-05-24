@@ -154,6 +154,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 		float PlayerHealth;
 
+	class UAIPerceptionStimuliSourceComponent* stimulus;
+	void SetupStimulus();
+
 public:
 	// Accessor function for Maximum Player Health Points
 	UFUNCTION(BlueprintPure, Category = "Health")

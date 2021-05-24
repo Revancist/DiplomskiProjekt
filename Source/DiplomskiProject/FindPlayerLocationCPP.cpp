@@ -9,7 +9,6 @@
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "GameFramework/Character.h"
 #include "DiplomskiProjectCharacter.h"
-#include "guard_blackboard.h"
 
 UFindPlayerLocationCPP::UFindPlayerLocationCPP(FObjectInitializer const& object_initializer)
 {
@@ -26,7 +25,7 @@ EBTNodeResult::Type UFindPlayerLocationCPP::ExecuteTask(UBehaviorTreeComponent& 
 	if (player)
 	{
 		// Set blackboard Target Location value 
-		owner_comp.GetBlackboardComponent()->SetValueAsVector(bb_keys::target_location, player->GetActorLocation());
+		owner_comp.GetBlackboardComponent()->SetValueAsVector("TargetLocation", player->GetActorLocation());
 
 		// Finish with success
 		FinishLatentTask(owner_comp, EBTNodeResult::Succeeded);

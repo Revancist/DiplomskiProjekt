@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "PatrolPathCpp.h"
 #include "Guard_NPC.generated.h"
 
 UCLASS()
@@ -27,9 +26,4 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	APatrolPathCpp* GetPatrolPath();
-
-private:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "True"))
-		APatrolPathCpp* patrol_path;
 };
