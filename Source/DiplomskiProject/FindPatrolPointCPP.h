@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class DIPLOMSKIPROJECT_API UFindPatrolPointCPP : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
