@@ -15,4 +15,5 @@ namespace bb_keys
 	TCHAR const* const chase_status = TEXT("ChaseStatus");
 	TCHAR const* const player_in_melee = TEXT("PlayerIsInMeleeRange");
 	TCHAR const* const is_investigating = TEXT("IsInvestigating");
+	TCHAR const* const has_been_chasing = TEXT("HasBeenChasing");
 }

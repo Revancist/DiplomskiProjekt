@@ -57,23 +57,29 @@ UBlackboardComponent* AGuard_AI::GetBlackboard() const
 	return blackboard;
 }
 
+// Called when Guard Perception System is updated
 void AGuard_AI::OnUpdated(TArray<AActor*> const& updated_actors)
 {
 	for (size_t x = 0; x < updated_actors.Num(); ++x)
 	{
+		// Get all updated perception components
 		FActorPerceptionBlueprintInfo info;
 		GetPerceptionComponent()->GetActorsPerception(updated_actors[x], info);
 		for (size_t k = 0; k < info.LastSensedStimuli.Num(); ++k)
 		{
+			// Check component type
 			FAIStimulus const stim = info.LastSensedStimuli[k];
 			if (stim.Tag == "Noise")
 			{
+				// Set blackboard Investigate value and target location
 				GetBlackboard()->SetValueAsBool(bb_keys::is_investigating, stim.WasSuccessfullySensed());
 				GetBlackboard()->SetValueAsVector(bb_keys::target_location, stim.StimulusLocation);
 			}
 			else if (stim.Type.Name == "Default__AISense_Sight")
 			{
+				// Set blackboard Can see Player value and Has been Chasing value
 				GetBlackboard()->SetValueAsBool(bb_keys::can_see_player, stim.WasSuccessfullySensed());
+				GetBlackboard()->SetValueAsBool(bb_keys::has_been_chasing, true);
 			}
 		}
 	}
@@ -90,7 +96,7 @@ void AGuard_AI::SetupPerceptionSystem()
 		sight_config->LoseSightRadius = sight_config->SightRadius + 50.0f;
 		sight_config->PeripheralVisionAngleDegrees = 90.0f;
 		sight_config->SetMaxAge(5.0f);
-		sight_config->AutoSuccessRangeFromLastSeenLocation = 900.0f;
+		sight_config->AutoSuccessRangeFromLastSeenLocation = 100.0f;
 		sight_config->DetectionByAffiliation.bDetectEnemies = true;
 		sight_config->DetectionByAffiliation.bDetectFriendlies = true;
 		sight_config->DetectionByAffiliation.bDetectNeutrals = true;

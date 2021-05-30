@@ -14,6 +14,9 @@ UIsPlayerInRangeCPP::UIsPlayerInRangeCPP()
 void UIsPlayerInRangeCPP::OnBecomeRelevant(UBehaviorTreeComponent& owner_comp, uint8* node_memory)
 {
 	Super::OnBecomeRelevant(owner_comp, node_memory);
+
+	// Get Player
+	ACharacter* const player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 }
 
 FString UIsPlayerInRangeCPP::GetStaticServiceDescription() const

@@ -20,6 +20,6 @@ protected:
 	FString GetStaticServiceDescription() const override;
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Range", meta = (AllowPrivateAccess = "true"))
-		float range = 200.0f;
+		float range = 500.0f;
 
 };

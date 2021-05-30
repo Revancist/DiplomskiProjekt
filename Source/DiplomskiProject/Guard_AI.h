@@ -15,9 +15,13 @@ class DIPLOMSKIPROJECT_API AGuard_AI : public AAIController
 {
 	GENERATED_BODY()
 public:
+	// Initialize behavior tree and blackboard
 	AGuard_AI(FObjectInitializer const& object_initializer = FObjectInitializer::Get());
+
 	void BeginPlay() override;
 	void OnPossess(APawn* const pawn) override;
+
+	// Getter for Blackboard
 	class UBlackboardComponent* GetBlackboard() const;
 private:
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
@@ -27,6 +31,8 @@ private:
 		class UBehaviorTree* btree;
 
 	class UBlackboardComponent* blackboard;
+
+	// Perception configuration
 	class UAISenseConfig_Sight* sight_config;
 	class UAISenseConfig_Hearing* hearing_config;
 
