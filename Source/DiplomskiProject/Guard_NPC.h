@@ -62,6 +62,9 @@ private:
 			UPrimitiveComponent* other_component,
 			int const other_body_index);
 
+	// Value to check if Guard already damaged Player during animation
+	bool has_damaged = false;
+
 public:
 	// Getter for Patrol Path
 	APatrolPath* GetPatrolPath();

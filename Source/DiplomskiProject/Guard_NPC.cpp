@@ -38,11 +38,12 @@ void AGuard_NPC::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Setup for collision box on right fist
 	if (right_fist_collision_box)
 	{
 		FAttachmentTransformRules const rules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 		right_fist_collision_box->SetRelativeLocation(FVector(-7.0f, 0.0f, 0.0f));
-		right_fist_collision_box->SetupAttachment(GetMesh(), "hand_rSocket");
+		right_fist_collision_box->AttachToComponent(GetMesh(), rules, "hand_rSocket");
 
 		right_fist_collision_box->OnComponentBeginOverlap.AddDynamic(this, &AGuard_NPC::OnAttackOverlapBegin);
 		right_fist_collision_box->OnComponentEndOverlap.AddDynamic(this, &AGuard_NPC::OnAttackOverlapEnd);
@@ -67,16 +68,19 @@ void AGuard_NPC::MeleeAttack()
 	}
 }
 
+// Called during attack animation when Guard can damage player
 void AGuard_NPC::AttackStart()
 {
 	right_fist_collision_box->SetCollisionProfileName("Fist");
 	right_fist_collision_box->SetNotifyRigidBodyCollision(true);
 }
 
+// Called during animation to disable damage dealing
 void AGuard_NPC::AttackEnd()
 {
 	right_fist_collision_box->SetCollisionProfileName("NoCollision");
 	right_fist_collision_box->SetNotifyRigidBodyCollision(false);
+	has_damaged = false;
 }
 
 // Called to bind functionality to input
@@ -86,11 +90,19 @@ void AGuard_NPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
+// Called when fist collision box has overlapped an actor
 void AGuard_NPC::OnAttackOverlapBegin(UPrimitiveComponent* const overlapped_component, AActor* const other_actor, UPrimitiveComponent* other_component, int const other_body_index, bool const from_sweep, FHitResult const& sweep_result)
 {
+	// Check if overlapped actor is the Player
 	if (ADiplomskiProjectCharacter* const player = Cast<ADiplomskiProjectCharacter>(other_actor))
 	{
-		player->UpdatePlayerHealth(-1 * damage);
+		// Check if player wasn't already damaged during animation
+		if (!has_damaged)
+		{
+			// Damage player and set has_damaged value to true
+			player->UpdatePlayerHealth(-1 * damage);
+			has_damaged = true;
+		}
 	}
 }
 
